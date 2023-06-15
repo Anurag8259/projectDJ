@@ -1,7 +1,9 @@
+import hardware.models
 from django.db import models
 valid_choice=[
     ('yearly','Yearly'),
-    ('lifetime','Lifetime')
+    ('lifetime','Lifetime'),
+    ('monthly','Monthly')
 ]
 # Create your models here.
 class Software(models.Model):
@@ -12,3 +14,17 @@ class Software(models.Model):
     vendor=models.CharField(max_length=50,default='NA')
     validity=models.CharField(max_length=50,choices=valid_choice,default='Lifetime')
     
+    def __str__(self):
+        return self.software_name
+    
+    # hardware=models.ManyToManyField(hardware.models.Hardware)
+#     class Meta:
+#         ordering=['software_name']
+#     def __str__(self):
+#         return self.software_name
+# class Hardware(models.Model):
+#     hardwares=models.CharField(max_length=50)
+#     class Meta:
+#         ordering=['hardwares']
+#     def __str__(self):
+#         return self.hardwares

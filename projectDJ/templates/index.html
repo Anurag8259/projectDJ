@@ -21,9 +21,10 @@
         <div class="container mx-auto flex items-center justify-between px-4">
           <h1 class="text-white text-2xl font-bold">Hardware and Software Management</h1>
           <nav>
+            <button onclick="gotoSof()">Softwares</button>
             <a href="#" class="text-white hover:text-gray-200 mx-2">Home
             </a>
-            <a href="#" class="text-white hover:text-gray-200 mx-2">Features</a>
+            <a href="#" class="text-white hover:text-gray-200 mx-2">Software</a>
             <a href="#" class="text-white hover:text-gray-200 mx-2">Pricing</a>
             <a href="#" class="text-white hover:text-gray-200 mx-2">Contact</a>
           </nav>
@@ -68,7 +69,7 @@
   <div id="addAssetModal" class="overflow-auto pt-16 pb-16 pl-16 pr-16 fixed inset-0 items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-8 rounded shadow-lg">
       <h2 class="text-2xl font-bold mb-4">Add New Asset</h2>
-      <form id="addAssetForm">
+      <form id="addAssetForm" action="POST">{%csrf_token%}
         <div class="mb-4">
           <label for="assetId" class="block font-bold">Asset ID:</label>
           <input type="text" id="assetId" name="assetId" class="w-full rounded-md border border-gray-300 px-4 py-2">
@@ -95,7 +96,12 @@
         </div>
         <div class="mb-4">
           <label for="allotment" class="block font-bold">Allotment:</label>
-          <input type="text" id="allotment" name="allotment" class="w-full rounded-md border border-gray-300 px-4 py-2">
+          <input type="text" list="names" name="allotment" class="w-full rounded-md border border-gray-300 px-4 py-2">
+          <datalist id="names">
+            {%for n in edata%}
+            <option value="{{n.employee_name}}"></option>
+            {%endfor%}
+          </datalist>
         </div>
         <div class="mb-4">
           <label for="status" class="block font-bold">Status:</label>
@@ -121,7 +127,9 @@
   <script>
     // Asset data
     let assets = [];
-
+    function gotoSof(){
+      window.location.href="software.html";
+    }
     // Function to render the asset table
     function renderAssetTable() {
       const assetTableBody = document.getElementById("assetTableBody");

@@ -21,6 +21,7 @@ from projectDJ import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('about-us/',views.aboutUs),
+    path('software.html/',views.SoftwarePage),
     path('course/',views.course),
     path('',views.homePage),
     path('course/<courseid>',views.courseDetails),

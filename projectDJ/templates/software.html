@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hardware Asset Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-200">
+  {% comment %} <div class="flex ">hello</div> {% endcomment %}
+    <header class="bg-blue-500 py-4">
+        <div class="container mx-auto flex items-center justify-between px-4">
+          <h1 class="text-white text-2xl font-bold">Hardware and Software Management</h1>
+          <nav>
+            {% comment %} <button onclick="gotoHar()">Hardware</button> {% endcomment %}
+            <a href="#" class="text-white hover:text-gray-200 mx-2">Home
+            </a>
+            <a href="#" class="text-white hover:text-gray-200 mx-2">Features</a>
+            <a href="#" class="text-white hover:text-gray-200 mx-2">Pricing</a>
+            <a href="#" class="text-white hover:text-gray-200 mx-2">Contact</a>
+          </nav>
+        </div>
+    </header>
+    
+  <div class="container mt-8 overflow-auto">
+    <button id="addAssetBtn" class="my-2 px-4 py-2 bg-green-500 text-white font-bold rounded hover:bg-green-600">Add New</button>
+    <table class="w-full bg-white border border-gray-300">
+      <thead>
+        <tr>
+          <th class="px-auto-cols-min p-1">Software Name</th>
+          <th class="px-auto-cols-min p-1">Cost</th>
+          <th class="px-auto-cols-min p-1">Buy Date</th>
+          <th class="px-auto-cols-min p-1">Version</th>
+          <th class="px-auto-cols-min p-1">Vendor</th>
+          <th class="px-auto-cols-min p-1">Validity</th>
+        </tr>
+      </thead>
+      <tbody id="assetTableBody">
+        <!-- Table rows will be dynamically added here -->
+        {%for  n in sdata%}
+        <tr>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.software_name}}</td>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.price}}</td>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.buy_date}}</td>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.version}}</td>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.vendor}}</td>
+          <td class="px-6 py-4 border-b border-gray-300">{{n.validity}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="addAssetModal" class="overflow-auto pt-16 pb-16 pl-16 pr-16 fixed inset-0 items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-8 rounded shadow-lg">
+      <h2 class="text-2xl font-bold mb-4">Add New Asset</h2>
+      <form id="addAssetForm">
+        <div class="mb-4">
+          <label for="assetId" class="block font-bold">Asset ID:</label>
+          <input type="text" id="assetId" name="assetId" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="hardwareName" class="block font-bold">Hardware Name:</label>
+          <input type="text" id="hardwareName" name="hardwareName" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="locationProject" class="block font-bold">Location/Project:</label>
+          <input type="text" id="locationProject" name="locationProject" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="cost" class="block font-bold">Cost:</label>
+          <input type="text" id="cost" name="cost" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="buyDate" class="block font-bold">Buy Date:</label>
+          <input type="date" id="buyDate" name="buyDate" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="warranty" class="block font-bold">Warranty:</label>
+          <input type="text" id="warranty" name="warranty" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="allotment" class="block font-bold">Allotment:</label>
+          <input type="text" id="allotment" name="allotment" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="status" class="block font-bold">Status:</label>
+          <input type="text" id="status" name="status" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="softwareInstalled" class="block font-bold">Software Installed:</label>
+          <input type="text" id="softwareInstalled" name="softwareInstalled" class="w-full rounded-md border border-gray-300 px-4 py-2">
+        </div>
+        <div class="text-right">
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600">Add</button>
+          <button id="cancelAddAssetBtn" class="px-4 py-2 bg-red-500 text-white font-bold rounded hover:bg-red-600 ml-2">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="fixed bg-blue-500 mt-16 bottom-0 w-full">
+    <div class="container mx-auto text-center">
+      <p class="text-white">&copy; 2023 Hardware and Software Management. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Asset data
+    let assets = [];
+    function gotoHar(){
+        window.location.href="index.html";
+    }
+    // Function to render the asset table
+    function renderAssetTable() {
+      const assetTableBody = document.getElementById("assetTableBody");
+      assetTableBody.innerHTML = "";
+
+      assets.forEach((asset) => {
+        const row = document.createElement("tr");
+
+        const assetIdCell = document.createElement("td");
+        assetIdCell.textContent = asset.assetId;
+        row.appendChild(assetIdCell);
+
+        const hardwareNameCell = document.createElement("td");
+        hardwareNameCell.textContent = asset.hardwareName;
+        row.appendChild(hardwareNameCell);
+
+        const locationProjectCell = document.createElement("td");
+        locationProjectCell.textContent = asset.locationProject;
+        row.appendChild(locationProjectCell);
+
+        const costCell = document.createElement("td");
+        costCell.textContent = asset.cost;
+        row.appendChild(costCell);
+
+        const buyDateCell = document.createElement("td");
+        buyDateCell.textContent = asset.buyDate;
+        row.appendChild(buyDateCell);
+
+        const warrantyCell = document.createElement("td");
+        warrantyCell.textContent = asset.warranty;
+        row.appendChild(warrantyCell);
+
+        const allotmentCell = document.createElement("td");
+        allotmentCell.textContent = asset.allotment;
+        row.appendChild(allotmentCell);
+
+        const statusCell = document.createElement("td");
+        statusCell.textContent = asset.status;
+        row.appendChild(statusCell);
+
+        const softwareInstalledCell = document.createElement("td");
+        softwareInstalledCell.textContent = asset.softwareInstalled;
+        row.appendChild(softwareInstalledCell);
+
+        assetTableBody.appendChild(row);
+      });
+    }
+
+    // Function to open the add asset modal
+    function openAddAssetModal() {
+      const addAssetModal = document.getElementById("addAssetModal");
+      addAssetModal.classList.remove("hidden");
+    }
+
+    // Function to close the add asset modal
+    function closeAddAssetModal() {
+      const addAssetModal = document.getElementById("addAssetModal");
+      addAssetModal.classList.add("hidden");
+      resetAddAssetForm();
+    }
+
+    // Function to reset the add asset form
+    function resetAddAssetForm() {
+      const addAssetForm = document.getElementById("addAssetForm");
+      addAssetForm.reset();
+    }
+
+    // Function to handle the form submission for adding a new asset
+    function handleAddAssetFormSubmit(event) {
+      event.preventDefault();
+
+      const assetId = document.getElementById("assetId").value;
+      const hardwareName = document.getElementById("hardwareName").value;
+      const locationProject = document.getElementById("locationProject").value;
+      const cost = document.getElementById("cost").value;
+      const buyDate = document.getElementById("buyDate").value;
+      const warranty = document.getElementById("warranty").value;
+      const allotment = document.getElementById("allotment").value;
+      const status = document.getElementById("status").value;
+      const softwareInstalled = document.getElementById("softwareInstalled").value;
+
+      const newAsset = {
+        assetId,
+        hardwareName,
+        locationProject,
+        cost,
+        buyDate,
+        warranty,
+        allotment,
+        status,
+        softwareInstalled
+      };
+
+      assets.push(newAsset);
+      renderAssetTable();
+      closeAddAssetModal();
+    }
+
+    // Event listeners
+    const addAssetBtn = document.getElementById("addAssetBtn");
+    addAssetBtn.addEventListener("click", openAddAssetModal);
+
+    const cancelAddAssetBtn = document.getElementById("cancelAddAssetBtn");
+    cancelAddAssetBtn.addEventListener("click", closeAddAssetModal);
+
+    const addAssetForm = document.getElementById("addAssetForm");
+    addAssetForm.addEventListener("submit", handleAddAssetFormSubmit);
+  </script>
+</body>
+
+</html>
